@@ -1,0 +1,35 @@
+swagger: "2.0"
+info:
+  title: Customer Statement Processor
+  version: 1.0.0
+host: www
+schemes:
+  - https
+basePath: /processor/v1/
+tags:
+  - name: "Customer Statement Processor"
+    description: "A service used to process customer statement for Rabobank."
+paths:
+  /customer-statement:
+    get:
+      tags:
+        - "Customer Statement"
+      summary: "Start the Customer Statement Processing."
+      description: "Validates and process the Customer Statements"
+      produces:
+        - "text/plain"
+      parameters:
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+          type: JSON
+        400:
+          description: "JSON Mapping Exception"
+          schema:
+          type: JSON
+        500:
+          description: "Internal Server Error"
+          schema:
+          type: JSON
+
