@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.rabobank.statementprocessor.assignment.enums.Result;
 import com.rabobank.statementprocessor.assignment.exception.StatementProcessException;
 import com.rabobank.statementprocessor.assignment.model.StatementOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,10 +21,13 @@ import java.util.Collections;
 @ControllerAdvice(assignableTypes = StatementProcessorController.class)
 public class StatementProcessorControllerAdvice {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatementProcessorControllerAdvice.class);
+
     @ExceptionHandler(JsonMappingException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public StatementOutput badRequestHandler(final JsonMappingException ex) {
+        LOGGER.error("Exception occurred while processing customer statement : {}", ex.getMessage());
         return StatementOutput.builder()
                               .result(Result.BAD_REQUEST.name())
                               .errorRecord(
@@ -34,6 +39,7 @@ public class StatementProcessorControllerAdvice {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public StatementOutput serviceExceptionHandler(final StatementProcessException ex) {
+        LOGGER.error("Exception occurred while processing customer statement : {}", ex.getMessage());
         return StatementOutput.builder()
                               .result(Result.INTERNAL_SERVER_ERROR.name())
                               .errorRecord(
