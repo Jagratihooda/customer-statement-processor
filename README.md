@@ -5,13 +5,12 @@
 * Quick summary
 
   Rabobank receives monthly deliveries of customer statement records. This information is delivered in JSON format. 
-  These records need to be validatedbased on below conditions
+  These records need to be validated based on below conditions
   
      * all transaction references should be unique
-     * end balance needs to be validated
-       Tech Stack
-
-### Backend:
+     * end balance needs to be validated 
+       
+### Tech Stack
 
 * Java 1.8
 * Spring Boot
@@ -50,7 +49,7 @@
    ]
    }
    `
-## Scope for betterment
+## Scope for improvement
 
 * Frontend implementation
 * Database Addition
